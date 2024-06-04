@@ -1,0 +1,311 @@
+import java.util.*;
+
+class node{
+    protected int regd;
+    protected float mark;
+    protected node next;
+	public node prev;
+
+    public node(int regd,float mark){
+        this.regd=regd;
+        this.mark=mark;
+        this.next=null;
+    }
+}
+//main class
+
+public class linkedlist {
+
+
+    public static void create(node start){
+    }
+
+    //insert at the begnning
+    public static node InsBeg(node start, int regd, float mark){
+        node p=new node(regd,mark);
+        p.next=start;
+        start=p;
+        return start;
+    }
+
+//insert at end
+public static node InsEnd(node start,int regd ,float mark){
+node p=new node(regd,mark);
+if(start == null)
+{
+    start=p;
+}
+else
+{
+    node temp=start;
+    while(temp.next!= null)
+    {
+        temp=temp.next;
+    }
+    temp.next =p;
+}
+return start;
+}
+
+//insert at any point
+public static node InsAny(node start,int regd,float mark,int pos){
+node p=new node(regd,mark);
+if (pos == 1)
+{
+   p.next =start;
+   start = p;
+}
+else 
+{
+    node temp = start;
+    for(int i=1;i<pos-1 && temp.next != null;i++)
+    {
+     temp=temp.next;
+    }
+}
+return start;
+}
+
+//delete at begnning
+public static node DelBeg(node start){
+    if(start == null)
+    {
+        System.out.println("List is Empty");
+        return start;
+    }
+    start=start.next;
+    return start;
+}
+
+//delet at end
+public static node DelEnd(node start){
+    if(start == null)
+    {
+        System.out.println("List i empty");
+        return start;
+    }
+    if(start.next == null)
+{
+    start=null;
+    return start;
+}
+node temp=start;
+while(temp.next.next != null){
+    temp=temp.next;
+}
+temp.next = null;
+return start;
+    }
+
+    //delete at any
+    public static node DelAny(node start,int pos){
+        if (pos == 1){
+            start = DelBeg(start);
+        }
+        else{
+            node temp = start;
+            for(int i=1;i<pos-1 && temp.next != null; i++){
+                temp=temp.next;
+            }
+            if (temp.next != null){
+                temp.next=temp.next.next;
+            }
+        }
+        return start;
+    } 
+
+    //delete the registration number
+    public static node DelRegd(node start, int regd){
+        if(start == null){
+            System.out.println("List is Empty");
+            return start;
+        }
+        if(start.regd == regd){
+            start = DelBeg(start);
+            return start;
+        }
+        node temp=start;
+        while(temp.next != null){
+            if(temp.next.regd == regd){
+                temp.next=temp.next.next;
+                return start;
+            }
+            temp = temp.next;
+        }
+        System.out.println("node with regd "+regd+" not found");
+        return start;
+    }
+
+    //search with regd
+    public static void search(node start){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the regd to search");
+        int regd=sc.nextInt();
+        node temp = start;
+        while(temp != null){
+            if(temp.regd == regd){
+                System.out.println("Enter new mark");
+                float mark = sc.nextFloat();
+                temp.mark = mark;
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Node with regd "+regd+" not found");
+    }
+
+    //Sorting
+    public static void sort(node start){
+        node temp=start;
+        while(temp != null){
+            node min = temp;
+            node temp2 = temp.next;
+            while(temp2 != null){
+                if(temp2.mark < min.mark){
+                    min = temp2;
+                }
+                temp2 = temp2.next;
+            }
+            float tempmark = temp.mark;
+            temp.mark = min.mark;
+            min.mark = tempmark;
+            temp = temp.next;
+        }
+    }
+
+    //count the number of node
+    public static int count(node start){
+        int count=0;
+        node temp=start;
+        while(temp != null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    //reverse
+    public static node reverse(node start){
+        node prev = null;
+        node current = start;
+        node next = null;
+        while(current != null){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        start = prev;
+        return start;
+    }
+
+    //display
+    public static void display(node start){
+        node temp = start;
+        while(temp != null){
+            System.out.println("regd "+temp.regd+", mark: "+temp.mark);
+            temp = temp.next;
+        }
+    }
+
+    //main method
+    public static void main(String args[]){
+        node start = null;
+        Scanner sc=new Scanner(System.in);
+        int choice =0;
+        while (choice != 13){
+            System.out.println("1: Insert at the beginning");
+            System.out.println("2: Insert at the end");
+            System.out.println("3: Insert at any position");
+            System.out.println("4: Delete from the Beginning");
+            System.out.println("5: Delete from the end");
+            System.out.println("6: Delete from any position");
+            System.out.println("7:Delete based on regd");
+            System.out.println("8: Search and update mark");
+            System.out.println("9: Sort based on mark");
+            System.out.println("10: Count the number of nodes");
+            System.out.println("11: Reverse the linked list");
+            System.out.println("12: Display the linked list");
+            System.out.println("13 Exit");
+            System.out.println("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch(choice){
+
+                case 1:
+                System.out.println("Enter regd: ");
+                int regd = sc.nextInt();
+                System.out.println("Enter mark: ");
+                float mark = sc.nextFloat();
+                start = InsBeg(start,regd,mark);
+                break;
+
+                case 2:
+                System.out.println("Enter regd: ");
+                regd =sc.nextInt();
+                System.out.println("Enter mark: ");
+                mark = sc.nextFloat();
+                start = InsEnd(start,regd,mark);
+                break;
+
+                case 3:
+                System.out.println("Enter regd: ");
+                regd = sc.nextInt();
+                System.out.println("Enter mark: ");
+                mark =sc.nextFloat();
+                System.out.println("Enter position: ");
+                int pos =sc.nextInt();
+                start =InsAny(start,regd,mark,pos);
+                break;
+
+                case 4: 
+                start = DelBeg(start);
+                break;
+
+                case 5:
+                start=DelEnd(start);
+                break;
+
+                case 6:
+                System.out.println("Enter position: ");
+                pos = sc.nextInt();
+                start =DelAny(start,pos);
+                break;
+
+                case 7:
+                System.out.println("Enter regd to delete: ");
+                regd =sc.nextInt();
+                start =DelRegd(start,regd);
+                break;
+
+                case 8:
+                search(start);
+                break;
+
+                case 9:
+                sort(start);
+                break;
+
+                case 10:
+                System.out.println("Number of nodes: "+count(start));
+                break;
+
+                case 11:
+                start = reverse(start);
+                break;
+
+                case 12:
+                display(start);
+                break;
+
+                case 13:
+                System.out.println("Exiting...");
+                break;
+
+                default: 
+                System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+
