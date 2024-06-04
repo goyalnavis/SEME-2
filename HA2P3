@@ -1,0 +1,61 @@
+
+import java.util.Scanner;
+class Bank{
+	String Bnme;
+	int deposit;
+	static int totalamount;
+	void setBankName(String name){
+		Bnme=name;	
+	}
+	void setAmount(int deposit) {
+		if(deposit>=1000) {
+			this.deposit=deposit;
+			totalamount+=deposit;
+		}
+		else
+			System.out.println("minimum deposit "+deposit);
+	}
+	void showdata() {
+		System.out.println("Bank name is "+Bnme);
+		System.out.println(" deposit is "+deposit);
+	}
+	static void totalamount() {
+		System.out.println("total deposit is"+totalamount);
+	}
+	static void minamount(Bank b[]) {
+		String minbank="";
+		int mindepo=Integer.MAX_VALUE;
+		for(int i=0; i<5; i++) {
+			if(b[i].deposit<mindepo) {
+			mindepo=b[i].deposit;
+			minbank=b[i].Bnme;
+			}
+		}
+		System.out.println("Bank where deposit is minimum is "+minbank+" amount is "+mindepo);
+		}
+		
+	}
+public class HA2P3 {
+	public static void main(String[]args) { 
+		Bank b[] = new Bank[5];
+	    for (int i=0; i<5; i++){
+	        b[i]=new Bank();
+	    }
+	    b[0].setBankName("HDFC");
+	    b[0].setAmount(1890);
+	    b[1].setBankName("AXIS");
+	    b[1].setAmount(900);
+	    b[2].setBankName("ICICI");
+	    b[2].setAmount(1500);
+	    b[3].setBankName("OGB");
+	    b[3].setAmount(2390);
+	    b[4].setBankName("PNB");
+	    b[4].setAmount(6570);
+
+	    for (int i=0; i<5; i++){
+	        b[i].showdata();
+	    }
+	    System.out.println("Total amount deposited: "+Bank.totalamount);
+	   Bank.minamount(b);
+	}
+}
