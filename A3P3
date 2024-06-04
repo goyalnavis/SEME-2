@@ -1,0 +1,37 @@
+import java.util.*;
+
+class MarksOutOfBoundException extends Exception{
+	MarksOutOfBoundException(String s){
+		 super(s);
+	}
+}
+
+class student{
+	String name;
+	int mark;
+	 student(String name, int mark) {
+		name="gopal";
+		mark=this.mark;
+	}
+}
+public class A3P3 {
+	 public static void main(String[]args) {
+	        Scanner sc=new Scanner(System.in);
+	System.out.println("enter the mark");
+	int x = 0;
+	if(x>100) {
+		try {
+	                     x=sc.nextInt();
+	                    student sc1= new student("gopal", x);
+	                    if (sc1.mark>100){
+	                            throw new MarksOutOfBoundException("Too high");
+	                    }   
+		}
+		catch(MarksOutOfBoundException ob) {
+			System.out.println(ob.getMessage());
+		}
+	}
+	else 
+	               System.out.println("Mark is "+x);
+	}
+}
